@@ -1,15 +1,7 @@
-import Link from "next/link";
-
-import { auth } from "@/server/auth";
 import { HydrateClient } from "@/trpc/server";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, CreditCard, Database } from 'lucide-react';
-import { Terminal } from "./_components/terminal";
 import Header from "./_components/header";
 
 export default async function Home() {
-  const session = await auth();
-
   return (
     <HydrateClient>
       <main>

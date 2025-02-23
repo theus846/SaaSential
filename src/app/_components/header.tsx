@@ -30,7 +30,7 @@ export default function Header() {
             <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger>
                 <Avatar className="cursor-pointer size-9">
-                  <AvatarImage alt={user.name || ''} />
+                  <AvatarImage alt={user.name ?? ''} />
                   <AvatarFallback>
                     {user.email.split(' ').map((n) => n[0]).join('')}
                   </AvatarFallback>
