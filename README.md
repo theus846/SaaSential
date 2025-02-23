@@ -1,4 +1,4 @@
-# SaaS Starter Kit
+## NEXT JS SaaS Starter Kit
 
 A modern SaaS starter kit built with cutting-edge technologies:
 
