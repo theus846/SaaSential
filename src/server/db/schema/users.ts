@@ -47,7 +47,7 @@ export const accounts = pgTable("account", {
 }, (account) => ({ userIdIdx: index("accountuserId_idx").on(account.userId) }));
 
 // Users → One-to-Many → Clients
-export const usersRelations = relations(users, ({ one, many }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   clients: many(clients),
 }));
@@ -57,7 +57,7 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
 }));
 
 // Clients → One-to-Many → Reports
-export const clientsRelations = relations(clients, ({ one, many }) => ({
+export const clientsRelations = relations(clients, ({ one }) => ({
   user: one(users, { fields: [clients.userId], references: [users.id] }),
 }));
 

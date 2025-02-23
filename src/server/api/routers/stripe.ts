@@ -1,4 +1,4 @@
-import { env } from "@/env.js";
+import { env } from "@/env.mjs";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { getOrCreateStripeCustomerIdForUser } from "@/server/stripe/stripe-webhook-handlers";
 

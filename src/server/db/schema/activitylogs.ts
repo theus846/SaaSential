@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { serial, text, timestamp, varchar, pgTable, uuid } from "drizzle-orm/pg-core";
+import { text, timestamp, varchar, pgTable } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
 export const activityLogs = pgTable('activity_logs', {
