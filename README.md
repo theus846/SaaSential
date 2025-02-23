@@ -1,29 +1,66 @@
-# Create T3 App
+## NEXT JS SaaS Starter Kit
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A modern SaaS starter kit built with cutting-edge technologies:
 
-## What's next? How do I make an app with this?
+- **Next.js** – React framework for building web applications
+- **Auth.js** – Authentication and authorization
+- **T3 Stack** – Type-safe full-stack framework
+- **Drizzle ORM** – TypeScript ORM for database operations
+- **Stripe** – Payment processing and subscriptions
+- **shadcn/ui** – Beautiful UI components
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- User authentication (Sign up, Login, Logout)
+- Subscription-based payments with Stripe
+- Database management using Drizzle ORM
+- UI components with shadcn/ui
+- API routes with Next.js server functions
+- Type safety with TypeScript
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Ensure you have the following installed:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- Node.js (LTS version recommended)
+- PostgreSQL / MySQL (configured for Drizzle ORM)
+- Stripe account for payment processing
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Installation
 
-## How do I deploy this?
+```sh
+git clone <repo-url>
+cd saas-starter-kit
+pnpm install
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+### Environment Variables
+
+Create a `.env` file in the root directory and add the necessary environment variables:
+
+### Running the Development Server
+
+```sh
+npm dev
+```
+
+The app will be available at `http://localhost:3000`.
+
+## Deployment
+
+To deploy your SaaS starter kit, you can use Vercel, AWS, or any platform that supports Next.js applications.
+
+```sh
+npm build
+npm start
+```
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
