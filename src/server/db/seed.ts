@@ -1,6 +1,6 @@
-import 'dotenv/config'; // Load environment variables from .env file
-import { env } from "@/env.mjs";
-import { stripe } from "../stripe/client";
+// Load environment variables from .env file
+import 'dotenv/config'; 
+import { stripe } from "../payments/client";
 
 async function createStripeProducts() {
   console.log('Creating Stripe products and prices...');

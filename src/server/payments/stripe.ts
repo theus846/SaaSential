@@ -49,11 +49,46 @@ export const handleInvoicePaid = async ({ event, stripe, db }: { event: Stripe.E
 
 export const handleSubscriptionCreatedOrUpdated = async ({ event, db }: { event: Stripe.Event; db: PostgresJsDatabase<typeof schemaFile> }) => {
   const subscription = event.data.object as Stripe.Subscription;
-  const userId = subscription.metadata.userId;
-  if (!userId) return;
+  const customerId = subscription.customer as string;
+  const subscriptionId = subscription.id;
+  const status = subscription.status;
 
-  // update user with subscription data
-  await db.update(users).set({ stripeSubscriptionId: subscription.id, stripeSubscriptionStatus: subscription.status }).where(eq(users.id, userId));
+  if (!customerId) return console.error("No customer id found in subscription");
+  const user = await db.query.users.findFirst({ where: eq(users.stripeCustomerId, customerId) });
+
+  if (!user) return console.error("No user found for subscription");
+
+  if (status == 'active' || status == 'trialing') {
+    const plan = subscription.items.data[0]?.plan;
+    await db.update(users).set({
+      stripeSubscriptionId: subscriptionId,
+      stripeSubscriptionStatus: status,
+      stripeCustomerId: customerId,
+    }).where(eq(users.stripeCustomerId, customerId));
+    // await api.stripe.updateUserSubscription({
+    //   userId: customerId,
+    //   subscriptionData: {
+    //     stripeSubscriptionId: subscriptionId,
+    //     subscriptionStatus: status,
+    //     stripeProductId: plan?.product as string
+    //   }
+    // })
+  } else if (status === 'canceled' || status === 'unpaid') {
+    await db.update(users).set({
+      stripeSubscriptionId: null,
+      stripeSubscriptionStatus: status,
+      stripeCustomerId: customerId,
+    }).where(eq(users.stripeCustomerId, customerId));
+    // await api.stripe.updateUserSubscription({
+    //   userId: customerId,
+    //   subscriptionData: {
+    //     stripeSubscriptionId: null,
+    //     subscriptionStatus: status,
+    //     stripeProductId: null
+    //   }
+    // });
+  }
+
 };
 
 export const handleSubscriptionCanceled = async ({ event, db }: { event: Stripe.Event; db: PostgresJsDatabase<typeof schemaFile> }) => {

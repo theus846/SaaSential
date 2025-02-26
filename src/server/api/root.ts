@@ -9,7 +9,7 @@ import { usersRouter } from "./routers/user";
  */
 export const appRouter = createTRPCRouter({
   users: usersRouter,
-  stripeRouter
+  stripe: stripeRouter
 });
 
 // export type definition of API

@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
@@ -5,10 +7,8 @@ import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials"
 
 import { db } from "@/server/db";
-import { accounts, sessions, User, users, verificationTokens } from "@/server/db/schema";
-import { api } from "@/trpc/server";
 import { signInSchema } from "../api/routers/user";
-import bcrypt from "bcryptjs";
+import { accounts, sessions, User, users, verificationTokens } from "@/server/db/schema";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -41,10 +41,11 @@ export const authConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = await signInSchema.parseAsync(credentials);
+        // const { email, password } = await signInSchema.parseAsync(credentials);
+        const { email, password } = credentials;
         let user: User | null = null;
         try {
-          user = await api.users.login({ email, password });
+          user = await db.query.users.findFirst({ where: eq(users.email, email + '') }) ?? null;
 
           if (!user) {
             throw new Error("Invalid credentials");
