@@ -50,7 +50,6 @@ export const stripeRouter = createTRPCRouter({
       });
 
       if (!checkoutSession) { throw new Error("Could not create checkout session") }
-      console.log(checkoutSession);
       return { checkoutUrl: checkoutSession.url };
     }),
 
@@ -133,8 +132,6 @@ export const stripeRouter = createTRPCRouter({
       active: true,
       type: "recurring",
     });
-
-    console.log(prices.data);
 
     return prices.data.map((price) => ({
       id: price.id,

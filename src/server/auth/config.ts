@@ -1,13 +1,13 @@
-import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
+import { object, string } from "zod";
+import bcrypt, { compare, hash } from "bcryptjs";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { type DefaultSession, type NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
+import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials"
 
 import { db } from "@/server/db";
-import { signInSchema } from "../api/routers/user";
 import { accounts, sessions, User, users, verificationTokens } from "@/server/db/schema";
 
 /**
@@ -27,6 +27,11 @@ declare module "next-auth" {
   // }
 }
 
+const signInSchema = object({
+  email: string({ required_error: "Email is required" }).min(1, "Email is required").email("Invalid email"),
+  password: string({ required_error: "Password is required" }).min(1, "Password is required").min(8, "Password must be more than 8 characters").max(32, "Password must be less than 32 characters"),
+});
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -34,6 +39,11 @@ declare module "next-auth" {
  */
 export const authConfig = {
   providers: [
+    // Credentials provider for email/password sign in
+    // This in not encouraged by NextAuth.js, due to underlying security concerns.
+    // Be sure to implement proper security measures like rate limiting, brute-force 
+    // protections, password hashing, email verification, etc.
+
     Credentials({
       name: "Credentials",
       credentials: {
@@ -41,8 +51,7 @@ export const authConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // const { email, password } = await signInSchema.parseAsync(credentials);
-        const { email, password } = credentials;
+        const { email, password } = signInSchema.parse(credentials);
         let user: User | null = null;
         try {
           user = await db.query.users.findFirst({ where: eq(users.email, email + '') }) ?? null;
@@ -51,6 +60,11 @@ export const authConfig = {
             throw new Error("Invalid credentials");
           }
 
+          if (!(compare(password, user.passwordHash))) {
+            throw new Error("Invalid password");
+          }
+
+          if (!compare(password, user.passwordHash)) { throw new Error("Invalid password") }
         } catch (e) {
           throw new Error("Invalid credentials");
         }
