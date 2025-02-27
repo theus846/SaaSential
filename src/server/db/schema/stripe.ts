@@ -1,4 +1,3 @@
-import { sql } from "drizzle-orm";
 import { boolean, index, integer, json, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const stripeSubscriptionEnum = pgEnum("stripeSubscriptionStatus", [

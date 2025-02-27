@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { object, string } from "zod";
-import bcrypt, { compare, hash } from "bcryptjs";
+import bcrypt, { compare } from "bcryptjs";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Credentials from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
@@ -60,12 +60,13 @@ export const authConfig = {
             throw new Error("Invalid credentials");
           }
 
-          if (!(compare(password, user.passwordHash))) {
+          if (!(await compare(password, user.passwordHash))) {
             throw new Error("Invalid password");
           }
 
-          if (!compare(password, user.passwordHash)) { throw new Error("Invalid password") }
+          if (!await compare(password, user.passwordHash)) { throw new Error("Invalid password") }
         } catch (e) {
+          console.error(e);
           throw new Error("Invalid credentials");
         }
         return user;

@@ -31,7 +31,7 @@ import {
 import { useSession } from "next-auth/react"
 
 export function NavUser() {
-  const user = useSession().data?.user!;
+  const user = useSession().data?.user;
   const { isMobile } = useSidebar()
 
   if (!user) {

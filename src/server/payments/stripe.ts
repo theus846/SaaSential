@@ -59,7 +59,6 @@ export const handleSubscriptionCreatedOrUpdated = async ({ event, db }: { event:
   if (!user) return console.error("No user found for subscription");
 
   if (status == 'active' || status == 'trialing') {
-    const plan = subscription.items.data[0]?.plan;
     await db.update(users).set({
       stripeSubscriptionId: subscriptionId,
       stripeSubscriptionStatus: status,

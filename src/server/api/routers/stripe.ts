@@ -1,27 +1,9 @@
 import { z } from "zod";
-import Stripe from "stripe";
 import { env } from "@/env.mjs";
 import { eq } from "drizzle-orm";
 import { users } from "@/server/db/schema";
 import { getOrCreateStripeCustomerIdForUser } from "@/server/payments/stripe";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
-
-const getPriceList = async (stripe: Stripe) => {
-  const prices = await stripe.prices.list({
-    expand: ["data.product"],
-    active: true,
-    type: "recurring",
-  });
-
-  return prices.data.map((price) => ({
-    id: price.id,
-    productId: typeof price.product === 'string' ? price.product : price.product.id,
-    unitAmount: price.unit_amount,
-    currency: price.currency,
-    interval: price.recurring?.interval,
-    trialPeriodDays: price.recurring?.trial_period_days
-  }));
-}
 
 export const stripeRouter = createTRPCRouter({
   createCheckoutSession: protectedProcedure.input(z.object({ priceId: z.string() }))

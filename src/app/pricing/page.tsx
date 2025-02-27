@@ -17,14 +17,14 @@ export default function PricingPage() {
   const plusPrice = prices?.find((price) => price.productId === plusPlan?.id);
 
   return (
-    <main>
+    <main className="min-h-screen bg-neutral-900">
       <Header />
       <div className="grid md:grid-cols-2 gap-8 max-w-xl mx-auto">
         <PricingCard
-          name={basePlan?.name || 'Base'}
-          price={basePrice?.unitAmount || 800}
-          interval={basePrice?.interval || 'month'}
-          trialDays={basePrice?.trialPeriodDays || 7}
+          name={basePlan?.name ?? 'Base'}
+          price={basePrice?.unitAmount ?? 800}
+          interval={basePrice?.interval ?? 'month'}
+          trialDays={basePrice?.trialPeriodDays ?? 7}
           features={[
             'Unlimited Usage',
             'Unlimited Workspace Members',
@@ -33,10 +33,10 @@ export default function PricingPage() {
           priceId={basePrice?.id}
         />
         <PricingCard
-          name={plusPlan?.name || 'Plus'}
-          price={plusPrice?.unitAmount || 1200}
-          interval={plusPrice?.interval || 'month'}
-          trialDays={plusPrice?.trialPeriodDays || 7}
+          name={plusPlan?.name ?? 'Plus'}
+          price={plusPrice?.unitAmount ?? 1200}
+          interval={plusPrice?.interval ?? 'month'}
+          trialDays={plusPrice?.trialPeriodDays ?? 7}
           features={[
             'Everything in Base, and:',
             'Early Access to New Features',
@@ -74,13 +74,13 @@ function PricingCard({ name, price, interval, trialDays, features, priceId }: {
 
   return (
     <div className="pt-6">
-      <h2 className="text-2xl font-medium text-gray-900 mb-2">{name}</h2>
-      <p className="text-sm text-gray-600 mb-4">
+      <h2 className="text-2xl font-medium text-neutral-200 mb-2">{name}</h2>
+      <p className="text-sm text-gray-400 mb-4">
         with {trialDays} day free trial
       </p>
       <p className="text-4xl font-medium text-gray-900 mb-6">
         ${price / 100}{' '}
-        <span className="text-xl font-normal text-gray-600">
+        <span className="text-xl font-normal text-gray-300">
           per user / {interval}
         </span>
       </p>
@@ -88,14 +88,14 @@ function PricingCard({ name, price, interval, trialDays, features, priceId }: {
         {features.map((feature, index) => (
           <li key={index} className="flex items-start">
             <Check className="h-5 w-5 text-orange-500 mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-gray-700">{feature}</span>
+            <span className="text-gray-300">{feature}</span>
           </li>
         ))}
       </ul>
 
       <div className="flex justify-center">
-        <Button className="w-full bg-white hover:bg-gray-100 text-black border border-gray-200 rounded-full flex items-center justify-center"
-          onClick={() => handleCheckout({ priceId: priceId || '' })} disabled={isPending}>
+        <Button className="w-full bg-neutral-900 hover:bg-neutral-800 text-white border border-gray-600 rounded-full flex items-center justify-center"
+          onClick={() => handleCheckout({ priceId: priceId ?? '' })} disabled={isPending}>
           {isPending ? "Subscribing..." : "Subscribe"}
 
           <ArrowRight className="ml-2 h-4 w-4" />

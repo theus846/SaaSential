@@ -10,7 +10,7 @@ export const signInSchema = object({
 
 export const usersRouter = createTRPCRouter({
   find: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
-    const user = await ctx.db.query.users.findFirst({ where: eq(users.id, input.id) }) || null;
+    const user = await ctx.db.query.users.findFirst({ where: eq(users.id, input.id) }) ?? null;
 
     return user;
   })
