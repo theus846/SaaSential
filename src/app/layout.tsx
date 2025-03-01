@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { SessionProvider } from "next-auth/react";
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             {children}
 
             <Analytics />
+            <SpeedInsights />
           </TRPCReactProvider>
         </SessionProvider>
       </body>
