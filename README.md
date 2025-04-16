@@ -1,4 +1,4 @@
-## NEXT JS SaaS Starter Kit
+## T3 stack SaaS Starter Kit
 
 A modern SaaS starter kit built with cutting-edge technologies:
 
@@ -27,14 +27,6 @@ Ensure you have the following installed:
 - Node.js (LTS version recommended)
 - PostgreSQL / MySQL (configured for Drizzle ORM)
 - Stripe account for payment processing
-
-### Installation
-
-```sh
-git clone <repo-url>
-cd saas-starter-kit
-pnpm install
-```
 
 ### Environment Variables
 
