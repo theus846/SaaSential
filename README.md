@@ -8,6 +8,7 @@ A modern SaaS starter kit built with cutting-edge technologies:
 - **Drizzle ORM** – TypeScript ORM for database operations
 - **Stripe** – Payment processing and subscriptions
 - **shadcn/ui** – Beautiful UI components
+If you like this project, hit the **STAR** button to bookmark it ⭐️
 
 ## Features
 
@@ -48,11 +49,3 @@ To deploy your SaaS starter kit, you can use Vercel, AWS, or any platform that s
 npm build
 npm start
 ```
-
-## Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
