@@ -8,6 +8,7 @@ A modern SaaS starter kit built with cutting-edge technologies:
 - **Drizzle ORM** – TypeScript ORM for database operations
 - **Stripe** – Payment processing and subscriptions
 - **shadcn/ui** – Beautiful UI components
+
 If you like this project, hit the **STAR** button to bookmark it ⭐️
 
 ## Features
